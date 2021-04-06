@@ -33,22 +33,25 @@ const userSeed = {
 
 const runSeeder = async () => {
   try {
- 
+    //clear datas each time run .. 
     await db.User.remove({})
     await db.Drawing.remove({})
     //write code to seed data
-    //insert drawing
-    const result = await db.Drawing.insertMany(drawingsSeed, { raw: true }) 
-    const drawingIds = result.map(drawing => drawing._id) 
-    //Add drawing ObjectId to User's drawing array
-    const finalUserData = {
-      ...userSeed,
-      drawings: drawingIds
-    }
-    const user = await db.User.create(finalUserData)
-    console.log(user)
-    //update user.id 
-    await db.Drawing.update({}, { user: user._id })
+    //insert drawing (search term : batch insert mongoose)
+   const response =  await db.Drawing.insertMany(drawingsSeed, {raw: true})
+   //Add drawing ObjectId to User's drawing array
+   const drawingId = response.map(drawing => drawing._id)
+  
+   const finalUserData = {
+     ...userSeed,
+     drawings: drawingId
+   }
+
+   const user = await db.User.create(finalUserData)
+     //update user.id 
+   await db.Drawing.update({}, {user:user._id})
+    
+
   } catch(err) {
     throw new err
   }
