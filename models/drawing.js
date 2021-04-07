@@ -9,7 +9,7 @@ const drawingSchema = new Schema({
     body: String,
     date: {
         type: Date,
-        dafault: Date.now()
+        default: Date.now()
     },
     drawing: {
         type: String,

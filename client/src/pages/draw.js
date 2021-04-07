@@ -1,5 +1,6 @@
 
 import React, { useState, useRef } from 'react'
+import { useHistory } from 'react-router-dom'
 import CanvasDraw from 'react-canvas-draw'
 import Container from '../components/container'
 import Row from '../components/row'
@@ -11,6 +12,10 @@ import API from "../utils/API"
 //import redirect from react router dom 
 
 const Draw = () => {
+
+  const history = useHistory()
+
+
   const [form, setForm] = useState({
     title: 'New Drawing',
     body: '',
@@ -24,7 +29,7 @@ const Draw = () => {
   })
 
   const canvasRef = useRef()
-
+  console.log(canvasRef)
   const handleFormChange = e => {
     setForm({
       ...form,
@@ -39,22 +44,25 @@ const Draw = () => {
     })
   }
 
-  const save =()=>{
-      console.log(canvasRef.current.getSaveData())
-   const postData ={
-       ...form, 
-       drawing:canvasRef.current.getSaveData()}
-       API.saveDrawing(postData)
-       .then(response => console.log(response))
-       .catch(err => console.log(err))
+  const save = () => {
+    // console.log(canvasRef.current.getSaveData())
+    const postData = {
+      ...form,
+      drawing: canvasRef.current.getSaveData()
+    }
+    API.saveDrawing(postData)
+      .then(response => history.push('/'))
+      .catch(err => console.log(err))
   }
-  const undo =()=>{
+  const undo = () => {
     canvasRef.current.undo()
-}
-const clear =()=>{
+  }
+  const clear = () => {
     canvasRef.current.clear()
-      
-}
+
+  }
+
+
 
 
   return (
