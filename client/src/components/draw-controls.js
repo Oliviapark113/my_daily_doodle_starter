@@ -4,7 +4,7 @@ import { HexColorPicker } from "react-colorful";
 const DrawControls = ({ settings, handleUpdateSettings }) => {
   return (
     <div>
-      <label htmlFor="brushColor">Brush Color</label>
+      <label htmlFor="brushColor" > Brush Color</label>
       <HexColorPicker 
         name="brushColor"
         color={settings.brushColor} 

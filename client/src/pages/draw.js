@@ -1,11 +1,14 @@
 
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import CanvasDraw from 'react-canvas-draw'
 import Container from '../components/container'
 import Row from '../components/row'
 import Col from '../components/col'
 import DrawControls from '../components/draw-controls'
 import AddDrawingForm from '../components/add-drawing-form'
+import Button from "../components/button"
+import API from "../utils/API"
+//import redirect from react router dom 
 
 const Draw = () => {
   const [form, setForm] = useState({
@@ -19,6 +22,8 @@ const Draw = () => {
     brushRadius: 12,
     brushColor: '#444'
   })
+
+  const canvasRef = useRef()
 
   const handleFormChange = e => {
     setForm({
@@ -34,11 +39,30 @@ const Draw = () => {
     })
   }
 
+  const save =()=>{
+      console.log(canvasRef.current.getSaveData())
+   const postData ={
+       ...form, 
+       drawing:canvasRef.current.getSaveData()}
+       API.saveDrawing(postData)
+       .then(response => console.log(response))
+       .catch(err => console.log(err))
+  }
+  const undo =()=>{
+    canvasRef.current.undo()
+}
+const clear =()=>{
+    canvasRef.current.clear()
+      
+}
+
+
   return (
     <Container>
       <Row>
         <Col className="col-lg-9">
-          <CanvasDraw  
+          <CanvasDraw 
+            ref={canvasRef} 
             brushColor={settings.brushColor}
             brushRadius={settings.brushRadius}
             canvasWidth={settings.canvasWidth}
@@ -54,6 +78,11 @@ const Draw = () => {
             settings={settings} 
             handleUpdateSettings={handleUpdateSettings} 
           />
+          <div className="d-grid gap-2">
+          <Button onClick={undo} className="btn-light">Undo</Button>
+          <Button onClick={clear} className="btn-light">Clear</Button>
+          <Button onClick={save}className="btn-primary">Save</Button>
+          </div>
         </Col>
       </Row>
     </Container>

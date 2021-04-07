@@ -11,6 +11,7 @@ module.exports = {
   },
   getDrawings: function(req, res) {
     db.Drawing.find({})
+    .sort({ date: -1})
     .then(drawings => res.json(drawings))
     .catch(err =>res.status(500).send())  
  
