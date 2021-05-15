@@ -16,14 +16,37 @@ const Home = () =>{
    
     const[drawings, setDrawings] = useState([])
     console.log(drawings)
+
+    const fetchDrawings = () =>{
+      API.getDrawings()
+      .then(response => setDrawings(response.data))
+      .catch(err=> console.log(err))
+    }
    
 
     useEffect(()=>{
-        API.getDrawings()
-        .then(response => setDrawings(response.data))
-        .catch(err=> console.log(err))
+      fetchDrawings()
     }
     ,[])
+
+
+    const handleDelete = id => {
+   
+      console.log(id)
+      const findDrawing = drawings.find(drawing => drawing._id===id)
+      console.log(findDrawing)
+      console.log(findDrawing._id)
+  
+      API.deleteDrawing(findDrawing, findDrawing._id)
+      .then(response =>{
+        console.log(response)
+
+        fetchDrawings()
+      }
+      )
+      .catch(err => console.log(err))
+  
+     }
     
 
     return (
@@ -31,7 +54,7 @@ const Home = () =>{
           <Row>
             { drawings.map(drawing => (
               <Col className="col-md-4" key={drawing._id}>
-                <DrawingCard {...drawing} />
+                <DrawingCard {...drawing}  handleDelete={handleDelete}/>
               </Col>
             )) }
           </Row>

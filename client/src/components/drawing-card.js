@@ -6,48 +6,21 @@ import API from '../utils/API'
 
 
 
-const DrawingCard = ({ title, date, drawing, body, _id }) => {
+const DrawingCard = ({ title, date, drawing, body, _id , handleDelete}) => {
 
   const canvasRef = useRef()
   const history = useHistory()
-  const [savedDrawings, setSavedDrawings] = useState([])
 
-  const getSavedDrawings = ()=>{
-  
-     API.getDrawings()
-     .then(storedDrawing => {
-       setSavedDrawings(storedDrawing.data)
-     })
- 
- 
 
-  }
+
  
   useEffect(() => {
     canvasRef.current.loadSaveData(drawing)
-    getSavedDrawings()
+  
   }, [])
 
-  console.log(savedDrawings)
- 
-  const handleDelete = id => {
-   
-    console.log(id)
-    const findDrawing = savedDrawings.find(drawing => drawing._id===id)
-    console.log(findDrawing)
-    console.log(findDrawing._id)
 
-    API.deleteDrawing(findDrawing, findDrawing._id)
-    .then(response =>{
-      console.log(response)
-      // getSavedDrawings()
-      canvasRef.current.clear(response.data._id)
-      savedDrawings.filter(drawing=> drawing._id !== response.data._id)
-    }
-    )
-    .catch(err => console.log(err))
 
-   }
   
   
   return (
