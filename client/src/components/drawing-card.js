@@ -6,9 +6,9 @@ import API from '../utils/API'
 
 
 const DrawingCard = ({ title, date, drawing, body, _id }) => {
+
   const canvasRef = useRef()
   const history = useHistory()
-
   const [savedDrawings, setSavedDrawings] = useState([])
 
   const getSavedDrawings = ()=>{
@@ -17,13 +17,14 @@ const DrawingCard = ({ title, date, drawing, body, _id }) => {
      .then(storedDrawing => {
        setSavedDrawings(storedDrawing.data)
      })
-
+ 
+ 
 
   }
  
   useEffect(() => {
-    getSavedDrawings()
     canvasRef.current.loadSaveData(drawing)
+    getSavedDrawings()
   }, [])
 
   console.log(savedDrawings)
@@ -38,9 +39,11 @@ const DrawingCard = ({ title, date, drawing, body, _id }) => {
     API.deleteDrawing(findDrawing, findDrawing._id)
     .then(response =>{
       console.log(response)
-      getSavedDrawings()
+      // getSavedDrawings()
+      // canvasRef.current.clear(response)
+      savedDrawings.filter(drawing=> drawing._id !== response.data._id)
     }
-           )
+    )
     .catch(err => console.log(err))
 
    }
@@ -50,6 +53,7 @@ const DrawingCard = ({ title, date, drawing, body, _id }) => {
   return (
     <div className="card">
       <CanvasDraw ref={canvasRef} disabled={true} />
+ 
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
 

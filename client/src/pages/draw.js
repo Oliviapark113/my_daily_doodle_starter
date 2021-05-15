@@ -45,16 +45,13 @@ const Draw = () => {
   }
 
   const save = () => {
-    // console.log(canvasRef.current.getSaveData())
+    // console.log(canvasRef.current)
     const postData = {
       ...form,
       drawing: canvasRef.current.getSaveData()
     }
     API.saveDrawing(postData)
-      .then(response => history.push({
-        pathname: '/',
-        state: form
-      }))
+      .then(response => history.push('/'))
       .catch(err => console.log(err))
   }
   const undo = () => {
