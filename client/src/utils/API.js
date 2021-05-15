@@ -10,7 +10,7 @@ export default {
     },
 
     deleteDrawing : function (data, id){
-      return axios.delete("/api/drawings"+id, data)
+      return axios.delete("/api/drawings/"+id, data)
     }
 
 }
