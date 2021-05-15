@@ -9,6 +9,9 @@ import DrawControls from '../components/draw-controls'
 import AddDrawingForm from '../components/add-drawing-form'
 import Button from "../components/button"
 import API from "../utils/API"
+import { BsFillTrashFill } from "react-icons/bs";
+import {FaSave } from "react-icons/fa";
+import '../components/style/draw.css'
 //import redirect from react router dom 
 
 const Draw = () => {
@@ -67,7 +70,7 @@ const Draw = () => {
 
   return (
     <Container>
-      <Row>
+      <Row className="draw-row">
         <Col className="col-lg-9">
           <CanvasDraw 
             ref={canvasRef} 
@@ -75,7 +78,7 @@ const Draw = () => {
             brushRadius={settings.brushRadius}
             canvasWidth={settings.canvasWidth}
             canvasHeight={settings.canvasHeight}
-          />
+           className="canvas-draw"/>
         </Col>
         <Col className="col-lg-3">
           <AddDrawingForm 
@@ -87,9 +90,9 @@ const Draw = () => {
             handleUpdateSettings={handleUpdateSettings} 
           />
           <div className="d-grid gap-2">
-          <Button onClick={undo} className="btn-light">Undo</Button>
-          <Button onClick={clear} className="btn-light">Clear</Button>
-          <Button onClick={save}className="btn-primary">Save</Button>
+          <Button onClick={undo} className="btn-light button">Undo</Button>
+          <Button onClick={clear} className="btn-light button">Clear <BsFillTrashFill/> </Button>
+          <Button onClick={save}className="btn-primary button">Save <FaSave/></Button>
           </div>
         </Col>
       </Row>

@@ -1,4 +1,5 @@
 import React from 'react'
+import '../components/style/draw.css'
 
 const AddDrawingForm = ({ form, handleFormChange }) => (
   <>

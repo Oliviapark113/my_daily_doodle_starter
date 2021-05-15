@@ -1,5 +1,6 @@
 import React from 'react'
 import { HexColorPicker } from "react-colorful";
+import '../components/style/draw.css'
 
 const DrawControls = ({ settings, handleUpdateSettings }) => {
   return (
@@ -9,6 +10,7 @@ const DrawControls = ({ settings, handleUpdateSettings }) => {
         name="brushColor"
         color={settings.brushColor} 
         onChange={newColor => handleUpdateSettings('brushColor', newColor)}
+        className="color-picker"
       />
       <br/>
       <label htmlFor="brushRadius">Brush Radius</label>

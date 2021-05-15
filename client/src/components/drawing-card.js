@@ -5,6 +5,7 @@ import {useHistory} from 'react-router-dom'
 import API from '../utils/API'
 
 
+
 const DrawingCard = ({ title, date, drawing, body, _id }) => {
 
   const canvasRef = useRef()
@@ -40,15 +41,14 @@ const DrawingCard = ({ title, date, drawing, body, _id }) => {
     .then(response =>{
       console.log(response)
       // getSavedDrawings()
-      // canvasRef.current.clear(response)
+      canvasRef.current.clear(response.data._id)
       savedDrawings.filter(drawing=> drawing._id !== response.data._id)
     }
     )
     .catch(err => console.log(err))
 
    }
-
-
+  
   
   return (
     <div className="card">
@@ -60,7 +60,7 @@ const DrawingCard = ({ title, date, drawing, body, _id }) => {
         <small> { date.split('T')[0] }</small>
         <p className="card-text">{body}</p>
         <Button onClick={()=>handleDelete(_id)} className="btn-light">Delete</Button>
-        <Button onClick={() =>history.push('/draw')} className="btn-light">Draw</Button>
+        <Button onClick={()=> history.push('/draw')} className="btn-light">Draw</Button>
       </div>
     </div>
   )

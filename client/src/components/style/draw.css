@@ -1,0 +1,51 @@
+.draw-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.color-picker{
+    margin: 0 auto;
+    width:100%;
+}
+
+
+
+
+label {
+    font-weight: bolder;
+}
+
+.button {
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+
+
+@media (max-width: 991px) {
+ .draw-row{
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+ }
+
+ .canvas-draw {
+     width:80%;
+     height:80%;
+ }
+
+ input{
+     width:100%;
+ }
+ textarea{
+     width: 100%;
+ }
+
+ .color-picker{
+     padding:0px;
+     margin: auto;
+     width: 100%;
+ }
+
+}

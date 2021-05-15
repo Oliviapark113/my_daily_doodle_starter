@@ -9,6 +9,7 @@ import Draw from './pages/draw'
 import Home from './pages/home'
 import Nav from './components/nav'
 
+
 function App() {
   return (
     <Router>
