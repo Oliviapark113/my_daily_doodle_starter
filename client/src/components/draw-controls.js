@@ -6,12 +6,14 @@ const DrawControls = ({ settings, handleUpdateSettings }) => {
   return (
     <div>
       <label htmlFor="brushColor" > Brush Color</label>
+      <div  className="react-colorful-div">
       <HexColorPicker 
         name="brushColor"
         color={settings.brushColor} 
         onChange={newColor => handleUpdateSettings('brushColor', newColor)}
-        className="color-picker"
+        className="react-colorful"
       />
+      </div>
       <br/>
       <label htmlFor="brushRadius">Brush Radius</label>
       <input

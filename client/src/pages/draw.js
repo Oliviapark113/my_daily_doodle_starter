@@ -71,16 +71,18 @@ const Draw = () => {
   return (
     <Container>
       <Row className="draw-row">
-        <Col className="col-lg-9">
+        <Col className="col-lg-9 canvas">
+          <div  className="canvas-draw">
           <CanvasDraw 
             ref={canvasRef} 
             brushColor={settings.brushColor}
             brushRadius={settings.brushRadius}
             canvasWidth={settings.canvasWidth}
             canvasHeight={settings.canvasHeight}
-           className="canvas-draw"/>
+          />
+           </div>
         </Col>
-        <Col className="col-lg-3">
+        <Col className="col-lg-3 controller">
           <AddDrawingForm 
             form={form}
             handleFormChange={handleFormChange}
@@ -91,8 +93,8 @@ const Draw = () => {
           />
           <div className="d-grid gap-2">
           <Button onClick={undo} className="btn-light button">Undo</Button>
-          <Button onClick={clear} className="btn-light button">Clear <BsFillTrashFill/> </Button>
-          <Button onClick={save}className="btn-primary button">Save <FaSave/></Button>
+          <Button onClick={clear} className="btn-light button">Clear <BsFillTrashFill className="icon"/> </Button>
+          <Button onClick={save}className="btn-primary button">Save <FaSave className="icon" /></Button>
           </div>
         </Col>
       </Row>

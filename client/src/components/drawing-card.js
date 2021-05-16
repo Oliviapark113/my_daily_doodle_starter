@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from 'react'
 import CanvasDraw from 'react-canvas-draw'
 import Button from './button'
 import {useHistory} from 'react-router-dom'
+import { BsFillTrashFill } from "react-icons/bs";
+import './style/draw.css'
 
 
 
@@ -31,8 +33,10 @@ const DrawingCard = ({ title, date, drawing, body, _id , handleDelete}) => {
 
         <small> { date.split('T')[0] }</small>
         <p className="card-text">{body}</p>
-        <Button onClick={()=>handleDelete(_id)} className="btn-light">Delete</Button>
-        <Button onClick={()=> history.push('/draw')} className="btn-light">Draw</Button>
+        <div className="card-btn-container">
+        <Button onClick={()=>handleDelete(_id)} className="btn-light"><BsFillTrashFill className="icon"/></Button>
+        <Button onClick={()=> history.push('/draw')} className="btn-primary">Edit</Button>
+        </div>
       </div>
     </div>
   )
