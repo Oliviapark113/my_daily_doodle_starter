@@ -21,7 +21,10 @@ module.exports = {
       const {id } = req.params
       db.Drawing.findById(id)
       .then(drawingData => {res.json(drawingData)})
-      .catch(err =>res.status(500).send())       
+      .catch(err =>{
+        console.log(err)
+        res.status(500).send()
+      })       
  
   },
   updateDrawing: function(req, res) {

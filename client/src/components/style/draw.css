@@ -35,9 +35,17 @@ label {
     display: flex; 
     flex-direction: row;
     justify-content: flex-end;
+
 }
-.card-body{
+
+.card{
     width: 100%;
+     
+  
+}
+
+.card-canvas {
+    margin: auto;
 }
 
 
@@ -67,6 +75,11 @@ label {
      padding:0px;
      margin: auto;
      width: 100%;
+ }
+
+ .card{
+     width: 400px; 
+   
  }
 
 }

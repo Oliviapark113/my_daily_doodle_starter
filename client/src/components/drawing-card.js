@@ -1,16 +1,15 @@
 import React, { useRef, useState, useEffect } from 'react'
 import CanvasDraw from 'react-canvas-draw'
 import Button from './button'
-import {useHistory} from 'react-router-dom'
 import { BsFillTrashFill } from "react-icons/bs";
 import './style/draw.css'
 
 
 
-const DrawingCard = ({ title, date, drawing, body, _id , handleDelete}) => {
+const DrawingCard = ({ title, date, drawing, body, _id , handleDelete, children}) => {
 
   const canvasRef = useRef()
-  const history = useHistory()
+  // const history = useHistory()
 
 
 
@@ -26,7 +25,13 @@ const DrawingCard = ({ title, date, drawing, body, _id , handleDelete}) => {
   
   return (
     <div className="card">
-      <CanvasDraw ref={canvasRef} disabled={true} />
+      <div className="card-canvas">
+      <CanvasDraw 
+      ref={canvasRef} 
+      disabled={true}
+      canvasWidth={380}
+      canvasHeight={380} />
+      </div>
  
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
@@ -35,7 +40,8 @@ const DrawingCard = ({ title, date, drawing, body, _id , handleDelete}) => {
         <p className="card-text">{body}</p>
         <div className="card-btn-container">
         <Button onClick={()=>handleDelete(_id)} className="btn-light"><BsFillTrashFill className="icon"/></Button>
-        <Button onClick={()=> history.push('/draw')} className="btn-primary">Edit</Button>
+        {children}
+        {/* <Button onClick={() => handleView(_id)} className="btn-primary">Edit</Button> */}
         </div>
       </div>
     </div>

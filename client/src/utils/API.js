@@ -5,6 +5,10 @@ export default {
       return axios("/api/drawings")
     },
 
+    getDrawing : function (id){
+      return axios("/api/drawings"+id)
+    },
+
     saveDrawing : function (data){
        return axios.post("/api/drawings", data)
     },

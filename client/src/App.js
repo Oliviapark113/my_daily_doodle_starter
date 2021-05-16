@@ -8,6 +8,7 @@ import {
 import Draw from './pages/draw'
 import Home from './pages/home'
 import Nav from './components/nav'
+import SavedDrawing from './pages/savedDrawing'
 
 
 function App() {
@@ -17,6 +18,9 @@ function App() {
       <Switch>
         <Route path="/draw">
           <Draw />
+        </Route>
+        <Route path="/savedDrawing">
+          <SavedDrawing />
         </Route>
         <Route path="/">
           <Home />
