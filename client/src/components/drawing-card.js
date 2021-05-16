@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react'
 import CanvasDraw from 'react-canvas-draw'
 import Button from './button'
 import {useHistory} from 'react-router-dom'
-import API from '../utils/API'
 
 
 

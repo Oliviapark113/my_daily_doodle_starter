@@ -31,7 +31,6 @@ const Home = () =>{
 
 
     const handleDelete = id => {
-   
       console.log(id)
       const findDrawing = drawings.find(drawing => drawing._id===id)
       console.log(findDrawing)
@@ -40,7 +39,6 @@ const Home = () =>{
       API.deleteDrawing(findDrawing, findDrawing._id)
       .then(response =>{
         console.log(response)
-
         fetchDrawings()
       }
       )
