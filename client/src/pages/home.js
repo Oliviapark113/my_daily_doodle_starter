@@ -49,12 +49,18 @@ const Home = () =>{
   
      }
 
-     const handleView = drawing => {
-     
-      history.push({
-          pathname: "/savedDrawing",
-          state: drawing
-      })
+     const handleView = id => {
+       API.getDrawing(id)
+       .then(response => {
+         console.log(response.data)
+         history.push({
+          pathname: '/savedDrawing',
+          state:response.data
+        })
+    
+       })
+       .catch(err=> console.log(err))
+
   }
 
     
@@ -66,7 +72,7 @@ const Home = () =>{
             { drawings.map(drawing => (
               <Col className="col-md-4" key={drawing._id}>
                 <DrawingCard {...drawing}  handleDelete={handleDelete}>
-                <Button onClick={() => handleView(drawing)} className="btn-primary">Edit</Button>
+                <Button onClick={() => handleView(drawing._id)} className="btn-primary">Edit</Button>
                 </DrawingCard>
               </Col>
             )) }

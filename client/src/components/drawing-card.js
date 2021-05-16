@@ -40,7 +40,6 @@ const DrawingCard = ({ title, date, drawing, body, _id , handleDelete, children}
         <p className="card-text">{body}</p>
         <div className="card-btn-container">
         <Button onClick={()=>handleDelete(_id)} className="btn-light"><BsFillTrashFill className="icon"/></Button>
-        {children}
         {/* <Button onClick={() => handleView(_id)} className="btn-primary">Edit</Button> */}
         </div>
       </div>

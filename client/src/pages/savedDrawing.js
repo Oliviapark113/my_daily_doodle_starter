@@ -18,24 +18,17 @@ const SavedDrawing = () => {
   const history = useHistory()
   const location = useLocation()
 
-  console.log(location)
-  console.log(location.state)
-  
-
-//   const fetchGetDrawing = ()=>{
-//       API.getDrawing(location.id)
-//       .then(response=> console.log(response))
-//   }
+  const [SavedDrawing, setSavedDrawing] = useState()
 
 
   useEffect(() => {
-    // fetchGetDrawing()
+    canvasRef.current.loadSaveData(location.state.drawing)
   
   }, [])
 
 
   const [form, setForm] = useState({
-    title: 'New Drawing',
+    title:location.state.title,
     body: '',
   })
 
@@ -62,16 +55,28 @@ const SavedDrawing = () => {
     })
   }
 
-  const save = () => {
-    // console.log(canvasRef.current)
-    const postData = {
-      ...form,
-      drawing: canvasRef.current.getSaveData()
+
+const handleUpdate = id => {
+    const finalDrawing = {
+      id:id,
+      title:location.state.title ,
+      body:location.state.body,
+      drawing:location.state.drawing,
+      date:location.state.date
+      
+
     }
-    API.saveDrawing(postData)
-      .then(response => history.push('/'))
-      .catch(err => console.log(err))
-  }
+ 
+   API.updateDrawing(finalDrawing.id, finalDrawing)
+   .then(response => {
+     console.log(response.data)
+     history.push("/")
+ })
+   .catch(err => console.log(err))
+ }
+
+
+
   const undo = () => {
     canvasRef.current.undo()
   }
@@ -109,7 +114,7 @@ const SavedDrawing = () => {
           <div className="d-grid gap-2">
           <Button onClick={undo} className="btn-light button">Undo</Button>
           <Button onClick={clear} className="btn-light button">Clear <BsFillTrashFill className="icon"/> </Button>
-          <Button onClick={save}className="btn-primary button">Update</Button>
+          <Button onClick={()=>handleUpdate(location.state.id)}className="btn-primary button">Update</Button>
           </div>
         </Col>
       </Row>
