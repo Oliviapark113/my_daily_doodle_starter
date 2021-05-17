@@ -24,45 +24,44 @@ const SavedDrawing = () => {
 
   console.log(location)
 
-  const fetchGetDrawing  = () => {
-      API.getDrawing(location.state._id)
-      .then(response=> setSavedDrawing(response.data))
-  }
+//   const fetchGetDrawing  = () => {
+//       API.getDrawing(location.state._id)
+//       .then(response=> setSavedDrawing(response.data))
+//   }
 
   useEffect(() => {
-    fetchGetDrawing()
+    // fetchGetDrawing()
     canvasRef.current.loadSaveData(location.state.drawing)
   
   }, [])
 
-  console.log(savedDrawing)
+//   console.log(savedDrawing)
 
-  const [editform, setEditForm] = useState({
+  const [updateForm, setUpdateForm] = useState({
     title:location.state.title,
-    body: location.state.body,
+    body: location.state.body
   })
 
 
 
-  const [settings, setSettings] = useState({
+  const [updateSettings, setUpdateSettings] = useState({
     canvasWidth: 800,
     canvasHeight: 800,
     brushRadius: 12,
     brushColor: '#444'
   })
- 
-  console.log(settings)
 
-  const handleFormChange = e => {
-    setEditForm({
-      ...editform,
+
+  const handleUpdateFormChange = e => {
+    setUpdateForm({
+      ...updateForm,
       [e.target.name]: e.target.value
     })
   }
 
   const handleUpdateSettings = (name, value) => {
-    setSettings({
-      ...settings,
+    setUpdateSettings({
+      ...updateSettings,
       [name]: value
     })
   }
@@ -71,29 +70,33 @@ const SavedDrawing = () => {
 const handleUpdate = id => {
     console.log(id)
     const finalDrawing = {
-     title: editform.title,
-     body:editform.body,
+     ...updateForm,
+     ...updateSettings,
      id:id,
-     drawing: canvasRef.current.getSaveData() 
+     drawing: canvasRef.current.getSaveData(),
+    //  date: savedDrawing.date
       
     }
  
    API.updateDrawing(finalDrawing.id, finalDrawing)
    .then(response => {
      console.log(response)
-    //  history.push({
-    //      pathname:"/",
-    //     })
+     history.push({
+         pathname:"/",
+        })
  })
    .catch(err => console.log(err))
  }
 
 
 
-  const undo = () => {
+  const updateUndo = () => {
     canvasRef.current.undo()
   }
-  const clear = () => {
+
+
+  
+  const updateClear = () => {
     canvasRef.current.clear()
 
   }
@@ -108,25 +111,25 @@ const handleUpdate = id => {
           <div  className="canvas-draw">
           <CanvasDraw 
             ref={canvasRef} 
-            brushColor={settings.brushColor}
-            brushRadius={settings.brushRadius}
-            canvasWidth={settings.canvasWidth}
-            canvasHeight={settings.canvasHeight}
+            brushColor={updateSettings.brushColor}
+            brushRadius={updateSettings.brushRadius}
+            canvasWidth={updateSettings.canvasWidth}
+            canvasHeight={updateSettings.canvasHeight}
           />
            </div>
         </Col>
         <Col className="col-lg-3 controller">
           <AddDrawingForm 
-            form={editform}
-            handleFormChange={handleFormChange}
+            form={updateForm}
+            handleFormChange={handleUpdateFormChange}
           />
           <DrawControls 
-            settings={settings} 
+            settings={updateSettings} 
             handleUpdateSettings={handleUpdateSettings} 
           />
           <div className="d-grid gap-2">
-          <Button onClick={undo} className="btn-light button">Undo</Button>
-          <Button onClick={clear} className="btn-light button">Clear <BsFillTrashFill className="icon"/> </Button>
+          <Button onClick={updateUndo} className="btn-light button">Undo</Button>
+          <Button onClick={updateClear} className="btn-light button">Clear <BsFillTrashFill className="icon"/> </Button>
           <Button onClick={()=>handleUpdate(location.state.id)} className="btn-primary button">Update</Button>
           </div>
         </Col>
