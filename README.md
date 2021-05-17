@@ -22,7 +22,7 @@ This is Class activities created by Instructor and I followed along the code to 
 
 ## DEMO 
 
-![Demo](./synthPadDemo.gif)
+![Demo](./demo/doodlestarter.gif)
 
 ### Deployed Link: 
-[Deployed Sites: React-SynthPad-2021](https://Oliviapark113.github.io/react_synthPad_2021/).
+[Deployed Sites:My_daily_doodle_starter](https://desolate-harbor-56312.herokuapp.com/).
