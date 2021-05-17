@@ -5,7 +5,15 @@ const apiRoutes = require('./routes/api-routes')
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/dailydoodles");
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost/dailydoodles", 
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  }
+  );
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
