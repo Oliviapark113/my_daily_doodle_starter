@@ -49,7 +49,7 @@ const SavedDrawing = () => {
   })
 
 
-  const handleUpdateFormChange = e => {
+  const handleFormChange = e => {
     setForm({
       ...form,
       [e.target.name]: e.target.value
@@ -117,7 +117,7 @@ const handleUpdate = id => {
         <Col className="col-lg-3 controller">
           <AddDrawingForm 
             form={form}
-            handleUpdateFormChange={handleUpdateFormChange}
+            handleFormChange={handleFormChange}
           />
           <DrawControls 
             settings={settings} 
