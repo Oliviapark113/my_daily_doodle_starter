@@ -6,11 +6,12 @@ import Container from '../components/container'
 import Row from '../components/row'
 import Col from '../components/col'
 import DrawControls from '../components/draw-controls'
-import AddDrawingForm from '../components/add-drawing-form'
 import Button from "../components/button"
 import API from "../utils/API"
 import { BsFillTrashFill } from "react-icons/bs";
 import '../components/style/draw.css'
+import AddDrawingForm from '../components/add-drawing-form'
+
 
 //import redirect from react router dom 
 
@@ -20,31 +21,27 @@ const SavedDrawing = () => {
   const location = useLocation()
   const canvasRef = useRef()
 
-  const [savedDrawing, setSavedDrawing] = useState()
+//   const [savedDrawing, setSavedDrawing] = useState()
 
   console.log(location)
 
-//   const fetchGetDrawing  = () => {
-//       API.getDrawing(location.state._id)
-//       .then(response=> setSavedDrawing(response.data))
-//   }
 
   useEffect(() => {
-    // fetchGetDrawing()
+ 
     canvasRef.current.loadSaveData(location.state.drawing)
   
   }, [])
 
 //   console.log(savedDrawing)
 
-  const [updateForm, setUpdateForm] = useState({
+  const [form, setForm] = useState({
     title:location.state.title,
     body: location.state.body
   })
 
 
 
-  const [updateSettings, setUpdateSettings] = useState({
+  const [settings, setSettings] = useState({
     canvasWidth: 800,
     canvasHeight: 800,
     brushRadius: 12,
@@ -53,15 +50,15 @@ const SavedDrawing = () => {
 
 
   const handleUpdateFormChange = e => {
-    setUpdateForm({
-      ...updateForm,
+    setForm({
+      ...form,
       [e.target.name]: e.target.value
     })
   }
 
   const handleUpdateSettings = (name, value) => {
-    setUpdateSettings({
-      ...updateSettings,
+    setSettings({
+      ...settings,
       [name]: value
     })
   }
@@ -70,11 +67,10 @@ const SavedDrawing = () => {
 const handleUpdate = id => {
     console.log(id)
     const finalDrawing = {
-     ...updateForm,
-     ...updateSettings,
+     ...form,
      id:id,
      drawing: canvasRef.current.getSaveData(),
-    //  date: savedDrawing.date
+     date: Date.now()
       
     }
  
@@ -90,13 +86,13 @@ const handleUpdate = id => {
 
 
 
-  const updateUndo = () => {
+  const undo = () => {
     canvasRef.current.undo()
   }
 
 
   
-  const updateClear = () => {
+  const clear = () => {
     canvasRef.current.clear()
 
   }
@@ -111,26 +107,26 @@ const handleUpdate = id => {
           <div  className="canvas-draw">
           <CanvasDraw 
             ref={canvasRef} 
-            brushColor={updateSettings.brushColor}
-            brushRadius={updateSettings.brushRadius}
-            canvasWidth={updateSettings.canvasWidth}
-            canvasHeight={updateSettings.canvasHeight}
+            brushColor={settings.brushColor}
+            brushRadius={settings.brushRadius}
+            canvasWidth={settings.canvasWidth}
+            canvasHeight={settings.canvasHeight}
           />
            </div>
         </Col>
         <Col className="col-lg-3 controller">
           <AddDrawingForm 
-            form={updateForm}
-            handleFormChange={handleUpdateFormChange}
+            form={form}
+            handleUpdateFormChange={handleUpdateFormChange}
           />
           <DrawControls 
-            settings={updateSettings} 
+            settings={settings} 
             handleUpdateSettings={handleUpdateSettings} 
           />
           <div className="d-grid gap-2">
-          <Button onClick={updateUndo} className="btn-light button">Undo</Button>
-          <Button onClick={updateClear} className="btn-light button">Clear <BsFillTrashFill className="icon"/> </Button>
-          <Button onClick={()=>handleUpdate(location.state.id)} className="btn-primary button">Update</Button>
+          <button onClick={() =>undo()} className="btn-light button">Undo</button>
+          <button onClick={()=> clear()} className="btn-light button">Clear <BsFillTrashFill className="icon"/> </button>
+          <button onClick={()=>handleUpdate(location.state._id)} className="btn-primary button">Update</button>
           </div>
         </Col>
       </Row>
