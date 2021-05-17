@@ -11,26 +11,38 @@ import Button from "../components/button"
 import API from "../utils/API"
 import { BsFillTrashFill } from "react-icons/bs";
 import '../components/style/draw.css'
+
 //import redirect from react router dom 
 
 const SavedDrawing = () => {
 
   const history = useHistory()
   const location = useLocation()
+  const canvasRef = useRef()
 
-  const [SavedDrawing, setSavedDrawing] = useState()
+  const [savedDrawing, setSavedDrawing] = useState()
 
+  console.log(location)
+
+  const fetchGetDrawing  = () => {
+      API.getDrawing(location.state._id)
+      .then(response=> setSavedDrawing(response.data))
+  }
 
   useEffect(() => {
+    fetchGetDrawing()
     canvasRef.current.loadSaveData(location.state.drawing)
   
   }, [])
 
+  console.log(savedDrawing)
 
-  const [form, setForm] = useState({
+  const [editform, setEditForm] = useState({
     title:location.state.title,
-    body: '',
+    body: location.state.body,
   })
+
+
 
   const [settings, setSettings] = useState({
     canvasWidth: 800,
@@ -38,12 +50,12 @@ const SavedDrawing = () => {
     brushRadius: 12,
     brushColor: '#444'
   })
+ 
+  console.log(settings)
 
-  const canvasRef = useRef()
-  console.log(canvasRef)
   const handleFormChange = e => {
-    setForm({
-      ...form,
+    setEditForm({
+      ...editform,
       [e.target.name]: e.target.value
     })
   }
@@ -57,20 +69,21 @@ const SavedDrawing = () => {
 
 
 const handleUpdate = id => {
+    console.log(id)
     const finalDrawing = {
-      id:id,
-      title:location.state.title ,
-      body:location.state.body,
-      drawing:location.state.drawing,
-      date:location.state.date
+     title: editform.title,
+     body:editform.body,
+     id:id,
+     drawing: canvasRef.current.getSaveData() 
       
-
     }
  
    API.updateDrawing(finalDrawing.id, finalDrawing)
    .then(response => {
-     console.log(response.data)
-     history.push("/")
+     console.log(response)
+    //  history.push({
+    //      pathname:"/",
+    //     })
  })
    .catch(err => console.log(err))
  }
@@ -104,7 +117,7 @@ const handleUpdate = id => {
         </Col>
         <Col className="col-lg-3 controller">
           <AddDrawingForm 
-            form={form}
+            form={editform}
             handleFormChange={handleFormChange}
           />
           <DrawControls 
@@ -114,7 +127,7 @@ const handleUpdate = id => {
           <div className="d-grid gap-2">
           <Button onClick={undo} className="btn-light button">Undo</Button>
           <Button onClick={clear} className="btn-light button">Clear <BsFillTrashFill className="icon"/> </Button>
-          <Button onClick={()=>handleUpdate(location.state.id)}className="btn-primary button">Update</Button>
+          <Button onClick={()=>handleUpdate(location.state.id)} className="btn-primary button">Update</Button>
           </div>
         </Col>
       </Row>

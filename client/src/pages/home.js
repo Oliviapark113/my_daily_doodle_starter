@@ -17,7 +17,6 @@ console.log(og_date.split('T')[0]); // => [ '2012', '10', '01' ]
 const Home = () =>{
    
     const[drawings, setDrawings] = useState([])
-    console.log(drawings)
     const history = useHistory()
 
     const fetchDrawings = () =>{
@@ -41,7 +40,6 @@ const Home = () =>{
   
       API.deleteDrawing(findDrawing, findDrawing._id)
       .then(response =>{
-        console.log(response)
         fetchDrawings()
       }
       )

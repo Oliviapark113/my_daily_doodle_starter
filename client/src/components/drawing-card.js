@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef,  useEffect } from 'react'
 import CanvasDraw from 'react-canvas-draw'
 import Button from './button'
 import { BsFillTrashFill } from "react-icons/bs";
@@ -9,7 +9,6 @@ import './style/draw.css'
 const DrawingCard = ({ title, date, drawing, body, _id , handleDelete, children}) => {
 
   const canvasRef = useRef()
-  // const history = useHistory()
 
 
 
@@ -41,6 +40,7 @@ const DrawingCard = ({ title, date, drawing, body, _id , handleDelete, children}
         <div className="card-btn-container">
         <Button onClick={()=>handleDelete(_id)} className="btn-light"><BsFillTrashFill className="icon"/></Button>
         {/* <Button onClick={() => handleView(_id)} className="btn-primary">Edit</Button> */}
+        {children}
         </div>
       </div>
     </div>

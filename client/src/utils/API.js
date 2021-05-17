@@ -2,19 +2,19 @@ import axios from "axios"
 
 export default {
     getDrawings : function (){
-      return axios("/api/drawings")
+      return axios.get("/api/drawings")
     },
 
     getDrawing : function (id){
-      return axios("/api/drawings/"+id)
+      return axios.get("/api/drawings/"+id)
     },
 
     saveDrawing : function (data){
        return axios.post("/api/drawings", data)
     },
 
-    updateDrawing : function (data, id){
-      return axios.post("/api/drawings/"+id, data)
+    updateDrawing : function (id, data){
+      return axios.put("/api/drawings/"+id, data)
    },
 
     deleteDrawing : function (data, id){
