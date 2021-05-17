@@ -18,7 +18,7 @@ Mongoose, Express, React
  
 ## Credits 
 
-This is Class activities created by Instructor and I followed along the code to learn MERN react full stack application and I have added delete featuer and responsive feature.
+This is Class activities created by Instructor and I followed along the code to learn MERN react full stack application and I have added delete, edit and update feature and responsive feature.
 
 ## DEMO 
 
